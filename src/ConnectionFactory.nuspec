@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ConnectionFactory.NetCore</id>
+    <version>1.0.0</version>
+    <title>Framework Connection Factory .Net Core</title>
+    <authors>Anderson Fernandes do Nascimento</authors>
+    <owners>afernandes</owners>
+    <licenseUrl>https://github.com/afernandes/ConnectionFactory.NetCore/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>http://afernandes.github.io/ConnectionFactory.NetCore/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Functions similar to iBATIS and Dapper, but without XML</description>
+    <releaseNotes>ExecuteScalar, QueryForObject, QueryForList, ExecuteReader, ExecuteNonQuery</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>connection-factory dapper ibatis orm dal micro-orm</tags>
+  </metadata>
+  <files>
+	<file src="lib\**" target="lib\" />
+  </files>
+</package>
