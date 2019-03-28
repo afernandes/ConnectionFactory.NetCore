@@ -164,19 +164,12 @@ namespace ConnectionFactory
             }
             return cmd;
         }
-
+       
         [System.Diagnostics.DebuggerStepThrough]
-        public CfCommand CreateCfCommand()
+        public CfCommand CreateCfCommand(int commandTimeout = -1)
         {
             var cfConnection = this;
-            return new CfCommand(ref cfConnection);
-        }
-
-        [System.Diagnostics.DebuggerStepThrough]
-        public CfCommand CreateCfCommand(int commandTimeout)
-        {
-            var cfConnection = this;
-            return new CfCommand(ref cfConnection);
+            return new CfCommand(ref cfConnection, commandTimeout);
         }
 
         /*[System.Diagnostics.DebuggerStepThrough]

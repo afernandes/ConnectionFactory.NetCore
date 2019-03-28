@@ -17,22 +17,14 @@ namespace ConnectionFactory
         private readonly CfConnection _conn;
         private DbCommand _cmd;
         private int _commandTimeout;
-
+        
         [System.Diagnostics.DebuggerStepThrough]
-        internal CfCommand(ref CfConnection conn)
-        {
-            Logger = NullLogger.Instance;
-            _conn = conn;
-            _commandTimeout = -1;
-        }
-        [System.Diagnostics.DebuggerStepThrough]
-        internal CfCommand(ref CfConnection conn, int commandTimeout)
+        internal CfCommand(ref CfConnection conn, int commandTimeout = -1)
         {
             Logger = NullLogger.Instance;
             _conn = conn;
             _commandTimeout = commandTimeout;
         }
-
 
         [System.Diagnostics.DebuggerStepThrough]
         public void Dispose()
