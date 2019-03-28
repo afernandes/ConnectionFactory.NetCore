@@ -16,13 +16,24 @@ namespace ConnectionFactory
 
         private readonly CfConnection _conn;
         private DbCommand _cmd;
+        private int _commandTimeout;
 
         [System.Diagnostics.DebuggerStepThrough]
         internal CfCommand(ref CfConnection conn)
         {
             Logger = NullLogger.Instance;
             _conn = conn;
+            _commandTimeout = -1;
         }
+        [System.Diagnostics.DebuggerStepThrough]
+        internal CfCommand(ref CfConnection conn, int commandTimeout)
+        {
+            Logger = NullLogger.Instance;
+            _conn = conn;
+            _commandTimeout = commandTimeout;
+        }
+
+
         [System.Diagnostics.DebuggerStepThrough]
         public void Dispose()
         {
@@ -44,6 +55,11 @@ namespace ConnectionFactory
 
             _cmd.CommandText = cmdText;
             _cmd.CommandType = (CommandType)cmdType;
+
+            if (_commandTimeout > -1)
+            {
+                _cmd.CommandTimeout = _commandTimeout;
+            }
 
             CreateDbParameters(cmdParms);
         }

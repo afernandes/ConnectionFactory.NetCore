@@ -172,6 +172,13 @@ namespace ConnectionFactory
             return new CfCommand(ref cfConnection);
         }
 
+        [System.Diagnostics.DebuggerStepThrough]
+        public CfCommand CreateCfCommand(int commandTimeout)
+        {
+            var cfConnection = this;
+            return new CfCommand(ref cfConnection);
+        }
+
         /*[System.Diagnostics.DebuggerStepThrough]
         public DbDataAdapter CreateDataAdapter()
         {

@@ -19,21 +19,21 @@ namespace ConnectionFactory
 
         #region QueryForList
         public static IList<T> QueryForList<T>(this DbConnection db,
-            string cmdText, object cmdParms) where T : new()
+            string cmdText, object cmdParms, int commandTimeout = -1) where T : new()
         {
             using(var conn = new CfConnection(db))
             {
-                var cmd = conn.CreateCfCommand();
+                var cmd = conn.CreateCfCommand(commandTimeout);
                 return cmd.QueryForList<T>(cmdText, cmdParms);
             }            
         }
 
         public static IList<dynamic> QueryForList(this DbConnection db,
-            string cmdText, object cmdParms)
+            string cmdText, object cmdParms, int commandTimeout = -1)
         {
             using (var conn = new CfConnection(db))
             {
-                var cmd = conn.CreateCfCommand();
+                var cmd = conn.CreateCfCommand(commandTimeout);
                 return cmd.QueryForList(cmdText, cmdParms);
             }
         }
@@ -41,21 +41,21 @@ namespace ConnectionFactory
 
         #region QueryForObject
         public static T QueryForObject<T>(this DbConnection db, 
-            string cmdText, object cmdParms) where T : new()
+            string cmdText, object cmdParms, int commandTimeout = -1) where T : new()
         {
             using (var conn = new CfConnection(db))
             {
-                var cmd = conn.CreateCfCommand();
+                var cmd = conn.CreateCfCommand(commandTimeout);
                 return cmd.QueryForObject<T>(cmdText, cmdParms);
             }
         }
 
         public static dynamic QueryForObject(this DbConnection db,
-            string cmdText, object cmdParms)
+            string cmdText, object cmdParms, int commandTimeout = -1)
         {
             using (var conn = new CfConnection(db))
             {
-                var cmd = conn.CreateCfCommand();
+                var cmd = conn.CreateCfCommand(commandTimeout);
                 return cmd.QueryForObject(cmdText, cmdParms);
             }
         }
