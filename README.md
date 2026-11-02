@@ -4,6 +4,8 @@ ADO.NET command helpers targeting .NET Standard 2.0. Microsoft.Extensions depend
 
 Pass a configured `DbConnection` to `CfConnection`; it opens a closed connection when executing a command. Commands accept optional parameters and an `ILogger` (the default is `NullLogger`). Dispose commands and connections after use.
 
+Parameter logging records only whether parameters were supplied. It does not log their values or enumerate deferred parameter sequences. SQL command text is logged, so use parameterized queries for sensitive values.
+
 ## Validation
 
 Install the .NET 8 SDK, then run:

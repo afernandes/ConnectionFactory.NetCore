@@ -26,7 +26,7 @@ namespace ConnectionFactory
             try
             {
                 Logger.LogInformation("DataAdapter: {0}", cmdText);
-                Logger.LogInformation("Parameters: {Parameters}", cmdParms);
+                Logger.LogInformation("Parameters supplied: {HasParameters}", cmdParms != null);
 
                 _conn.EstablishFactoryConnection();
                 var dda = _conn.CreateDataAdapter();

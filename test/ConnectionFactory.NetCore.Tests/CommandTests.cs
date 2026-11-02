@@ -39,6 +39,26 @@ public class CommandTests
         Assert.False(reader.Read());
         Assert.Contains(provider.Messages, message => message.Contains("ExecuteNonQuery"));
         Assert.Contains(provider.Messages, message => message.Contains("ExecuteReader"));
+        Assert.DoesNotContain(provider.Messages, message => message.Contains(value));
+    }
+
+    [Fact]
+    public void LoggingDoesNotEnumerateADeferredParameterSequence()
+    {
+        using var database = new SqliteConnection("Data Source=:memory:");
+        using var connection = new CfConnection(database);
+        using var command = connection.CreateCfCommand();
+        using var loggerFactory = LoggerFactory.Create(builder => builder.AddProvider(new RecordingLoggerProvider()));
+        command.Logger = loggerFactory.CreateLogger("DeferredParameters");
+        var enumerations = 0;
+        IEnumerable<CfParameter> Parameters()
+        {
+            if (++enumerations > 1) throw new InvalidOperationException("Parameters were consumed twice.");
+            yield return new CfParameter("value", 42L);
+        }
+
+        Assert.Equal(42L, command.ExecuteScalar<long>(CfCommandType.Text, "SELECT @value", Parameters()));
+        Assert.Equal(1, enumerations);
     }
 
     [Fact]
