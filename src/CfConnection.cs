@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
@@ -14,7 +14,6 @@ namespace ConnectionFactory
         private DbConnection _conn;
         private DbTransaction _tran;
         private long _tranOpenCount;
-        private string _connectionName;
 
         internal enum TransactionType
         {
@@ -80,7 +79,7 @@ namespace ConnectionFactory
 
                 if (_conn == null || !_conn.State.Equals(ConnectionState.Closed)) return;
 
-                _conn.ConnectionString = Configuration.GetConnectionString(_connectionName);
+                // The supplied DbConnection already owns its connection settings.
 
                 if (Transaction.Current == null)
                 {

@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -14,7 +14,7 @@ namespace ConnectionFactory
             try
             {
                 Logger.LogInformation("ExecuteScalar: {0}", cmdText);
-                Logger.LogInformation(cmdParms.ToString());
+                Logger.LogInformation("Parameters: {Parameters}", cmdParms);
 
                 _conn.EstablishFactoryConnection();
                 PrepareCommand(cmdType, cmdText, cmdParms);

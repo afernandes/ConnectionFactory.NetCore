@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Data;
 
@@ -19,7 +19,7 @@ namespace ConnectionFactory
         public IEnumerable<IDataReader> LazyLoad(CfCommandType cmdType, string cmdText, IEnumerable<CfParameter> cmdParms = null)
         {
             Logger.LogInformation("LazyLoad: {0}", cmdText);
-            Logger.LogInformation(cmdParms.ToString());
+            Logger.LogInformation("Parameters: {Parameters}", cmdParms);
 
             _conn.EstablishFactoryConnection();
             PrepareCommand(cmdType, cmdText, cmdParms);

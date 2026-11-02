@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -21,7 +21,7 @@ namespace ConnectionFactory
             try
             {
                 Logger.LogInformation("ExecuteReader: {0}", cmdText);
-                Logger.LogInformation(cmdParms.ToString());
+                Logger.LogInformation("Parameters: {Parameters}", cmdParms);
 
                 _conn.EstablishFactoryConnection();
                 PrepareCommand(cmdType, cmdText, cmdParms);
