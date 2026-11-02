@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using Microsoft.Extensions.Logging;
@@ -26,7 +26,7 @@ namespace ConnectionFactory
             try
             {
                 Logger.LogInformation("DataAdapter: {0}", cmdText);
-                Logger.LogInformation(cmdParms.ToString());
+                Logger.LogInformation("Parameters: {Parameters}", cmdParms);
 
                 _conn.EstablishFactoryConnection();
                 var dda = _conn.CreateDataAdapter();
