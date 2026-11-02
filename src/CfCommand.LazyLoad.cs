@@ -19,7 +19,7 @@ namespace ConnectionFactory
         public IEnumerable<IDataReader> LazyLoad(CfCommandType cmdType, string cmdText, IEnumerable<CfParameter> cmdParms = null)
         {
             Logger.LogInformation("LazyLoad: {0}", cmdText);
-            Logger.LogInformation("Parameters: {Parameters}", cmdParms);
+            Logger.LogInformation("Parameters supplied: {HasParameters}", cmdParms != null);
 
             _conn.EstablishFactoryConnection();
             PrepareCommand(cmdType, cmdText, cmdParms);
