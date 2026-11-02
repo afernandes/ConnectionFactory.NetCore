@@ -25,13 +25,13 @@ namespace ConnectionFactory
             }
             catch (DbException dbe)
             {
-                Logger.LogError(dbe, "ExecuteNonQuery",cmdType, cmdText, cmdParms);
+                Logger.LogError(dbe, "ExecuteNonQuery");
                 throw new CfException("Unknown error in database: " + dbe.Message, dbe);
 
             }
             catch (Exception ex)
             {
-                Logger.LogError(ex, "ExecuteNonQuery", cmdType, cmdText, cmdParms);
+                Logger.LogError(ex, "ExecuteNonQuery");
                 throw new CfException("Error on Connection Factory Mechanism: " + ex.Message, ex);
             }
         }

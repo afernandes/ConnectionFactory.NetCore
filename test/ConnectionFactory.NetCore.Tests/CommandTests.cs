@@ -70,6 +70,38 @@ public class CommandTests
         Assert.Null(command.ExecuteScalar<string>(CfCommandType.Text, "SELECT NULL"));
     }
 
+    [Theory]
+    [InlineData("nonquery")]
+    [InlineData("scalar")]
+    [InlineData("reader")]
+    public void ErrorLoggingPreservesDatabaseErrorsWithDeferredParameters(string operation)
+    {
+        using var database = new SqliteConnection("Data Source=:memory:");
+        using var connection = new CfConnection(database);
+        using var command = connection.CreateCfCommand();
+        using var loggerFactory = LoggerFactory.Create(builder => builder.AddProvider(new RecordingLoggerProvider()));
+        command.Logger = loggerFactory.CreateLogger("FailingDeferredParameters");
+        var enumerations = 0;
+        IEnumerable<CfParameter> Parameters()
+        {
+            if (++enumerations > 1) throw new InvalidOperationException("Parameters were consumed twice.");
+            yield return new CfParameter("value", 42L);
+        }
+
+        const string sql = "SELECT @value FROM missing";
+        var error = Assert.Throws<CfException>(() =>
+        {
+            switch (operation)
+            {
+                case "nonquery": command.ExecuteNonQuery(CfCommandType.Text, sql, Parameters()); break;
+                case "scalar": command.ExecuteScalar<long>(CfCommandType.Text, sql, Parameters()); break;
+                case "reader": using (command.ExecuteReader(CfCommandType.Text, sql, Parameters())) { } break;
+            }
+        });
+        Assert.IsType<SqliteException>(error.InnerException);
+        Assert.Equal(1, enumerations);
+    }
+
     [Fact]
     public void QueryMapsNamedColumnsToObjects()
     {

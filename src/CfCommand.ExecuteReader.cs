@@ -29,7 +29,7 @@ namespace ConnectionFactory
             }
             catch (Exception ex)
             {
-                Logger.LogError(ex, "ExecuteReader", cmdType, cmdText, cmdParms);
+                Logger.LogError(ex, "ExecuteReader");
                 throw new CfException("Unknown Error (Connection Factory: ExecuteReader) " + ex.Message, ex);
             }
         }
