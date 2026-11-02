@@ -30,13 +30,13 @@ namespace ConnectionFactory
                 }
                 catch (Exception ex)
                 {
-                    Logger.LogError(ex, string.Format("ExecuteScalar<{0}>", typeof(T).Name), cmdType, cmdText, cmdParms);
+                    Logger.LogError(ex, "ExecuteScalar<{ResultType}>", typeof(T).Name);
                     throw new CfException(String.Format("Conversion error in ({0})\"{1}\" - (Connection Factory: ExecuteScalar) > {2}", typeof(T).Name, returnValue, ex.Message), ex);
                 }
             }
             catch (Exception ex)
             {
-                Logger.LogError(ex, string.Format("ExecuteScalar<{0}>", typeof(T).Name), cmdType, cmdText, cmdParms);
+                Logger.LogError(ex, "ExecuteScalar<{ResultType}>", typeof(T).Name);
                 throw new CfException("Unknown Error (Connection Factory: ExecuteScalar) " + ex.Message, ex);
             }
         }
